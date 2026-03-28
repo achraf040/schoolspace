@@ -1,66 +1,144 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SchoolSpace
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Application web de gestion des espaces et des tâches pour établissements scolaires, développée avec **Laravel 10** et **PHP 8.1+**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Présentation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+SchoolSpace permet aux administrateurs de gérer les utilisateurs, les espaces (départements/bureaux) et les attributions de tâches. Les agents (workers) disposent d'un tableau de bord personnel pour suivre et mettre à jour leurs tâches assignées.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Fonctionnalités
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Espace Admin
+- Gestion complète des utilisateurs (CRUD, activation/désactivation, photo de profil)
+- Gestion des espaces (départements) avec génération automatique d'email
+- Attribution de tâches aux agents par espace
+- Types de tâches : accès, réservation, permanent, temporaire, maintenance, administration
+- Suivi des statuts : en attente, actif, en pause, terminé
+- Tableau de bord avec statistiques et activité récente
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Espace Agent
+- Vue des tâches assignées avec filtrage par espace
+- Mise à jour du statut des tâches en temps réel
+- Historique des tâches complétées
+- Statistiques personnelles
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Sécurité
+- Authentification par session avec protection CSRF
+- Limitation des tentatives de connexion (rate limiting)
+- Contrôle d'accès basé sur les rôles (admin / agent)
+- Génération de tokens sécurisés
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Stack technique
 
-### Premium Partners
+| Technologie | Version |
+|---|---|
+| PHP | ^8.1 |
+| Laravel | ^10.10 |
+| Laravel Sanctum | ^3.3 |
+| PostgreSQL | 13+ |
+| Vite | ^5.0 |
+| Axios | ^1.6 |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Prérequis
+- PHP >= 8.1
+- Composer
+- Node.js & npm
+- PostgreSQL
 
-## Code of Conduct
+### Étapes
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+# 1. Cloner le dépôt
+git clone https://github.com/achraf040/schoolspace.git
+cd schoolspace
 
-## Security Vulnerabilities
+# 2. Installer les dépendances PHP
+composer install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# 3. Installer les dépendances JS
+npm install
 
-## License
+# 4. Configurer l'environnement
+cp .env.example .env
+php artisan key:generate
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 5. Configurer la base de données dans .env
+# DB_CONNECTION=pgsql
+# DB_DATABASE=schoolspace
+# DB_USERNAME=postgres
+# DB_PASSWORD=
+
+# 6. Exécuter les migrations et les seeders
+php artisan migrate --seed
+
+# 7. Créer le lien de stockage
+php artisan storage:link
+
+# 8. Compiler les assets
+npm run build
+
+# 9. Lancer le serveur
+php artisan serve
+```
+
+L'application sera accessible sur `http://localhost:8000`.
+
+---
+
+## Structure de la base de données
+
+| Table | Description |
+|---|---|
+| `users` | Utilisateurs (admin / agents) |
+| `espaces` | Espaces / départements |
+| `attributions` | Tâches assignées aux agents par espace |
+
+---
+
+## Comptes par défaut (Seeder)
+
+Après `php artisan migrate --seed`, un compte administrateur est créé automatiquement. Consultez `database/seeders/AdminSeeder.php` pour les identifiants.
+
+---
+
+## Structure du projet
+
+```
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   ├── AdminController.php
+│   │   ├── WorkerController.php
+│   │   └── Admin/
+│   │       ├── UserController.php
+│   │       ├── EspaceController.php
+│   │       └── AttributionController.php
+│   └── Middleware/
+│       ├── AdminOnly.php
+│       ├── WorkerOnly.php
+│       └── LoginRateLimit.php
+├── Models/
+│   ├── User.php
+│   ├── Espace.php
+│   └── Attribution.php
+└── Services/
+    ├── EmailGenerationService.php
+    └── CacheService.php
+```
+
+---
+
+## Licence
+
+Ce projet est développé dans un cadre éducatif.
