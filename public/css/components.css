@@ -1,0 +1,487 @@
+/* Components CSS - Design System SUPMTI 2024 */
+
+/* Utilise les variables CSS définies dans admin.css */
+
+/* === BOUTONS MODERNES === */
+.btn-modern {
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.025em;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.btn-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-modern:hover::before {
+    left: 100%;
+}
+
+.btn-modern:hover {
+    transform: translateY(-2px);
+}
+
+.btn-modern.btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+}
+
+.btn-modern.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+}
+
+.btn-modern.btn-xs {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.6875rem;
+}
+
+/* === CARTES MODERNES === */
+.card-modern {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-modern:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-modern.card-gradient::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient, linear-gradient(90deg, var(--primary-500), var(--secondary-500)));
+    opacity: 0.8;
+}
+
+.card-modern:hover.card-gradient::before {
+    opacity: 1;
+}
+
+/* Variantes de couleurs pour les cartes */
+.card-modern.card-primary {
+    --gradient: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+}
+
+.card-modern.card-secondary {
+    --gradient: linear-gradient(135deg, var(--secondary-500), var(--secondary-600));
+}
+
+.card-modern.card-success {
+    --gradient: linear-gradient(135deg, var(--success-500), var(--success-600));
+}
+
+.card-modern.card-warning {
+    --gradient: linear-gradient(135deg, var(--warning-500), var(--warning-600));
+}
+
+.card-modern.card-danger {
+    --gradient: linear-gradient(135deg, var(--danger-500), var(--danger-600));
+}
+
+.card-modern.card-info {
+    --gradient: linear-gradient(135deg, var(--info-500), var(--info-600));
+}
+
+/* === BADGES ET LABELS === */
+.badge-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-lg);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    transition: all var(--transition-fast);
+}
+
+.badge-modern.badge-primary {
+    background: var(--primary-100);
+    color: var(--primary-700);
+}
+
+.badge-modern.badge-secondary {
+    background: var(--secondary-100);
+    color: var(--secondary-700);
+}
+
+.badge-modern.badge-success {
+    background: var(--success-100);
+    color: var(--success-700);
+}
+
+.badge-modern.badge-warning {
+    background: var(--warning-100);
+    color: var(--warning-700);
+}
+
+.badge-modern.badge-danger {
+    background: var(--danger-100);
+    color: var(--danger-700);
+}
+
+.badge-modern.badge-info {
+    background: var(--info-100);
+    color: var(--info-700);
+}
+
+.badge-modern.badge-outline {
+    background: transparent;
+    border: 1px solid currentColor;
+}
+
+/* === FORMULAIRES MODERNES === */
+.form-modern {
+    --form-border-color: var(--gray-300);
+    --form-focus-color: var(--primary-500);
+    --form-error-color: var(--danger-500);
+    --form-success-color: var(--success-500);
+}
+
+.form-group-modern {
+    margin-bottom: 1.5rem;
+}
+
+.form-label-modern {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.form-label-modern.required::after {
+    content: '*';
+    color: var(--danger-500);
+    margin-left: 0.25rem;
+}
+
+.form-input-modern {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid var(--form-border-color);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    transition: all var(--transition-normal);
+    background: white;
+    color: var(--gray-800);
+}
+
+.form-input-modern:focus {
+    outline: none;
+    border-color: var(--form-focus-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    transform: translateY(-1px);
+}
+
+.form-input-modern.error {
+    border-color: var(--form-error-color);
+}
+
+.form-input-modern.error:focus {
+    border-color: var(--form-error-color);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.form-input-modern.success {
+    border-color: var(--form-success-color);
+}
+
+.form-help-modern {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.form-error-modern {
+    margin-top: 0.5rem;
+    color: var(--danger-600);
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 500;
+}
+
+/* === TABLEAUX MODERNES === */
+.table-modern {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.table-modern thead {
+    background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+}
+
+.table-modern th {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.table-modern td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-800);
+    font-size: 0.875rem;
+}
+
+.table-modern tbody tr {
+    transition: background-color var(--transition-fast);
+}
+
+.table-modern tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.table-modern tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* === ALERTES MODERNES === */
+.alert-modern {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-lg);
+    margin-bottom: 1.5rem;
+    font-size: 0.875rem;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 4px;
+    background: currentColor;
+    opacity: 0.7;
+}
+
+.alert-modern .alert-icon {
+    flex-shrink: 0;
+    font-size: 1.25rem;
+}
+
+.alert-modern.alert-primary {
+    background: var(--primary-50);
+    color: var(--primary-700);
+    border-color: var(--primary-200);
+}
+
+.alert-modern.alert-secondary {
+    background: var(--secondary-50);
+    color: var(--secondary-700);
+    border-color: var(--secondary-200);
+}
+
+.alert-modern.alert-success {
+    background: var(--success-50);
+    color: var(--success-700);
+    border-color: var(--success-200);
+}
+
+.alert-modern.alert-warning {
+    background: var(--warning-50);
+    color: var(--warning-700);
+    border-color: var(--warning-200);
+}
+
+.alert-modern.alert-danger {
+    background: var(--danger-50);
+    color: var(--danger-700);
+    border-color: var(--danger-200);
+}
+
+.alert-modern.alert-info {
+    background: var(--info-50);
+    color: var(--info-700);
+    border-color: var(--info-200);
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Classes d'animation */
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease both;
+}
+
+.animate-fade-in-left {
+    animation: fadeInLeft 0.6s ease both;
+}
+
+.animate-fade-in-right {
+    animation: fadeInRight 0.6s ease both;
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.4s ease both;
+}
+
+.animate-slide-down {
+    animation: slideDown 0.3s ease both;
+}
+
+/* Délais d'animation */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-400 { animation-delay: 0.4s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+
+/* === UTILITIES === */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary-600), var(--secondary-600));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.shadow-modern {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-modern-lg {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .btn-modern {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.8125rem;
+    }
+    
+    .card-modern {
+        border-radius: var(--radius-lg);
+    }
+    
+    .form-input-modern {
+        padding: 0.75rem 0.875rem;
+        font-size: 1rem; /* Évite le zoom sur iOS */
+    }
+    
+    .table-modern th,
+    .table-modern td {
+        padding: 0.75rem 1rem;
+    }
+    
+    .alert-modern {
+        padding: 0.875rem 1rem;
+    }
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>@yield('title') - SUPMTI Admin</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Optimized Stylesheets -->
+    <link rel="stylesheet" href="{{ asset('css/design-system.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components-optimized.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Meta tags -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="theme-color" content="#059669">
+    <meta name="description" content="Interface d'administration SUPMTI - Gestion des espaces et utilisateurs">
+    
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <img src="{{ asset('images/Logosup.png') }}" alt="SUPMTI" class="brand-logo">
+                <h2>SUPMTI</h2>
+                <span class="brand-subtitle">Administration</span>
+            </div>
+
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="user-avatar">
+                    @if(Auth::user()->hasProfilePhoto())
+                        <img src="{{ Auth::user()->profile_photo_url }}" alt="Profile">
+                    @else
+                        <div class="avatar-placeholder">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                    @endif
+                </div>
+                <div class="user-details">
+                    <h4>{{ Auth::user()->name }}</h4>
+                    <p>{{ Auth::user()->account_type ?? 'Administrateur' }}</p>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <ul class="nav" role="navigation" aria-label="Navigation principale">
+                <li class="nav-item">
+                    <a href="{{ route('admin.dashboard') }}" 
+                       class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
+                       aria-label="Aller au tableau de bord"
+                       data-tooltip="Accéder aux statistiques et graphiques - Alt+D"
+                       {{ request()->routeIs('admin.dashboard') ? 'aria-current="page"' : '' }}>
+                        <div class="nav-link-content">
+                            <i class="fas fa-chart-line" aria-hidden="true"></i>
+                            <span>Tableau de bord</span>
+                            <span class="nav-shortcut">D</span>
+                        </div>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" 
+                       class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}"
+                       aria-label="Gérer les utilisateurs"
+                       data-tooltip="Gérer comptes utilisateurs et permissions - Alt+U"
+                       {{ request()->routeIs('admin.users.*') ? 'aria-current="page"' : '' }}>
+                        <div class="nav-link-content">
+                            <i class="fas fa-user-friends" aria-hidden="true"></i>
+                            <span>Utilisateurs</span>
+                            <span class="nav-shortcut">U</span>
+                        </div>
+                        <span class="nav-badge" id="users-badge">{{ App\Models\User::count() }}</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('admin.espaces.index') }}" 
+                       class="nav-link {{ request()->routeIs('admin.espaces.*') ? 'active' : '' }}"
+                       aria-label="Gérer les espaces"
+                       data-tooltip="Configuration des espaces de travail - Alt+E"
+                       {{ request()->routeIs('admin.espaces.*') ? 'aria-current="page"' : '' }}>
+                        <div class="nav-link-content">
+                            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+                            <span>Espaces</span>
+                            <span class="nav-shortcut">E</span>
+                        </div>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="{{ route('admin.attributions.index') }}" 
+                       class="nav-link {{ request()->routeIs('admin.attributions.*') ? 'active' : '' }}"
+                       aria-label="Gérer les tâches"
+                       data-tooltip="Gestion et attribution des tâches - Alt+T"
+                       {{ request()->routeIs('admin.attributions.*') ? 'aria-current="page"' : '' }}>
+                        <div class="nav-link-content">
+                            <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+                            <span>Tâches</span>
+                            <span class="nav-shortcut">T</span>
+                        </div>
+                        <span class="nav-badge nav-badge-warning" id="tasks-badge">{{ App\Models\Attribution::count() }}</span>
+                    </a>
+                </li>
+                
+                <li class="nav-separator" role="separator"></li>
+                
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('logout') }}" class="nav-form">
+                        @csrf
+                        <button type="submit" class="nav-link logout-btn" aria-label="Se déconnecter">
+                            <div class="nav-link-content">
+                                <i class="fas fa-power-off" aria-hidden="true"></i>
+                                <span>Déconnexion</span>
+                            </div>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">@yield('page-title')</h1>
+                </div>
+
+                <div class="header-right">
+                    <!-- Admin Info -->
+                    <div class="space-info">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Administration</span>
+                    </div>
+                    
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            @if(Auth::user()->hasProfilePhoto())
+                                <img src="{{ Auth::user()->profile_photo_url }}" alt="Profile">
+                            @else
+                                <div class="avatar-placeholder">
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content-wrapper" id="main-content">
+
+            @if(session('success'))
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle"></i>
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    {{ session('error') }}
+                </div>
+            @endif
+
+                @yield('content')
+            </div>
+        </main>
+    </div>
+
+    <!-- Optimized JavaScript -->
+    <script src="{{ asset('js/navigation.js') }}" defer></script>
+</body>
+</html>

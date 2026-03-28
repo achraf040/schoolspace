@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title') - SUPMTI Workspace</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.svg') }}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Optimized Stylesheets -->
+    <link rel="stylesheet" href="{{ asset('css/design-system.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components-optimized.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Meta tags -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="theme-color" content="#059669">
+    <meta name="description" content="Interface Travailleur SUPMTI - Gestion des tâches">
+    
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Mobile Menu Toggle -->
+        <div class="mobile-menu-toggle" id="mobileMenuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <!-- Brand -->
+            <div class="sidebar-brand">
+                <img src="{{ asset('images/Logosup.png') }}" alt="SUPMTI" class="brand-logo">
+                <h2>SUPMTI</h2>
+                <span class="brand-subtitle">Espace Travailleur</span>
+            </div>
+
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="user-avatar">
+                    @if(Auth::user()->hasProfilePhoto())
+                        <img src="{{ Auth::user()->profile_photo_url }}" alt="Profile">
+                    @else
+                        <div class="avatar-placeholder">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                    @endif
+                </div>
+                <div class="user-details">
+                    <h4>{{ Auth::user()->name }}</h4>
+                    <p>{{ Auth::user()->account_type ?? 'Travailleur' }}</p>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="{{ route('worker.dashboard') }}" class="nav-link {{ request()->routeIs('worker.dashboard') ? 'active' : '' }}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="#tasks" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        <span>Mes tâches</span>
+                        @if(isset($stats) && isset($stats['active']) && $stats['active'] > 0)
+                            <span class="badge">{{ $stats['active'] }}</span>
+                        @endif
+                    </a>
+                </li>
+                
+                <li class="nav-separator"></li>
+                
+                <li class="nav-item">
+                    <form method="POST" action="{{ route('logout') }}" class="nav-form">
+                        @csrf
+                        <button type="submit" class="nav-link logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Déconnexion</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 class="page-title">@yield('page-title')</h1>
+                </div>
+
+                <div class="header-right">
+                    <!-- Space Info -->
+                    @if(isset($userEspace))
+                        <div class="space-info">
+                            <i class="fas fa-building"></i>
+                            <span>{{ $userEspace->nom }}</span>
+                        </div>
+                    @endif
+                    
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            @if(Auth::user()->hasProfilePhoto())
+                                <img src="{{ Auth::user()->profile_photo_url }}" alt="Profile">
+                            @else
+                                <div class="avatar-placeholder">
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content-wrapper">
+                @yield('content')
+            </div>
+        </main>
+    </div>
+
+    <!-- Optimized JavaScript -->
+    <script src="{{ asset('js/navigation.js') }}" defer></script>
+    
+    @stack('scripts')
+</body>
+</html>

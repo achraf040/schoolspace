@@ -1,0 +1,550 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #0f766e 0%, #134e4a 30%, #115e59 70%, #0d9488 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.container {
+    max-width: 420px;
+    width: 100%;
+    padding: 40px 20px;
+    will-change: transform;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInDown 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.logo {
+    height: 90px;
+    width: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+    padding: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(15, 118, 110, 0.5), transparent);
+}
+
+.form-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 40px;
+    letter-spacing: -0.025em;
+    background: linear-gradient(135deg, #1f2937, #0f766e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.form-group {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    background: #f9fafb;
+    will-change: border-color, box-shadow, background-color;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #0f766e;
+    box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
+    background: white;
+}
+
+.input::placeholder {
+    color: #9ca3af;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 4px;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #0f766e;
+}
+
+.password-group {
+    position: relative;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+    position: relative;
+}
+
+.checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: #6b7280;
+    user-select: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 32px;
+    transition: color 0.2s ease;
+}
+
+.checkbox-label:hover {
+    color: #374151;
+}
+
+.checkbox-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox-label:hover::before {
+    border-color: #0f766e;
+    box-shadow: 0 2px 8px rgba(15, 118, 110, 0.2);
+}
+
+.checkbox:checked + .checkbox-label::before {
+    background: #0f766e;
+    border-color: #0f766e;
+    box-shadow: 0 2px 8px rgba(15, 118, 110, 0.3);
+}
+
+.checkbox:checked + .checkbox-label::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 6px;
+    height: 10px;
+    border: 2px solid white;
+    border-top: none;
+    border-left: none;
+    opacity: 1;
+    animation: checkmark 0.2s ease-in-out;
+}
+
+@keyframes checkmark {
+    0% {
+        transform: translateY(-50%) rotate(45deg) scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(-50%) rotate(45deg) scale(1);
+        opacity: 1;
+    }
+}
+
+.checkbox:focus + .checkbox-label::before {
+    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #0f766e, #134e4a);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    will-change: transform, box-shadow;
+}
+
+.submit-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(15, 118, 110, 0.25);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+    transition-duration: 0.05s;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    animation: fadeIn 0.8s ease-out 0.3s both;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Responsive Design - Mobile First */
+
+/* Extra small phones (280px+) */
+@media (min-width: 280px) and (max-width: 319px) {
+    .container {
+        padding: 15px 10px;
+        max-width: 95%;
+    }
+    
+    .form-container {
+        padding: 20px 15px;
+        border-radius: 12px;
+    }
+    
+    .logo {
+        height: 50px;
+    }
+    
+    .logo-container {
+        margin-bottom: 20px;
+    }
+    
+    .form-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 16px;
+    }
+    
+    .input {
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+    
+    .submit-btn {
+        padding: 14px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+    
+    .checkbox-container {
+        margin-bottom: 20px;
+    }
+    
+    .footer {
+        margin-top: 20px;
+        font-size: 12px;
+    }
+}
+
+/* Small phones (320px-374px) */
+@media (min-width: 320px) and (max-width: 374px) {
+    .container {
+        padding: 20px 12px;
+        max-width: 96%;
+    }
+    
+    .form-container {
+        padding: 25px 18px;
+        border-radius: 14px;
+    }
+    
+    .logo {
+        height: 60px;
+    }
+    
+    .logo-container {
+        margin-bottom: 25px;
+    }
+    
+    .form-title {
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+    
+    .form-group {
+        margin-bottom: 18px;
+    }
+    
+    .input {
+        padding: 14px;
+        font-size: 16px;
+        border-radius: 9px;
+    }
+    
+    .submit-btn {
+        padding: 15px;
+        font-size: 15px;
+        border-radius: 9px;
+    }
+    
+    .checkbox-container {
+        margin-bottom: 24px;
+    }
+    
+    .footer {
+        margin-top: 25px;
+        font-size: 13px;
+    }
+}
+
+/* Medium phones (375px-479px) */
+@media (min-width: 375px) and (max-width: 479px) {
+    .container {
+        padding: 20px 15px;
+        max-width: 98%;
+    }
+    
+    .form-container {
+        padding: 30px 20px;
+        border-radius: 15px;
+    }
+    
+    .logo {
+        height: 70px;
+    }
+    
+    .logo-container {
+        margin-bottom: 30px;
+    }
+    
+    .form-title {
+        font-size: 22px;
+        margin-bottom: 28px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .input {
+        padding: 15px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    .submit-btn {
+        padding: 16px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    .checkbox-container {
+        margin-bottom: 28px;
+    }
+    
+    .footer {
+        margin-top: 30px;
+        font-size: 14px;
+    }
+}
+
+/* Large phones and small tablets (480px+) */
+@media (min-width: 480px) {
+    .container {
+        padding: 40px 20px;
+        max-width: 420px;
+    }
+    
+    .form-container {
+        padding: 40px;
+        border-radius: 16px;
+    }
+    
+    .logo {
+        height: 90px;
+    }
+    
+    .logo-container {
+        margin-bottom: 40px;
+    }
+    
+    .form-title {
+        font-size: 24px;
+        margin-bottom: 32px;
+    }
+    
+    .form-group {
+        margin-bottom: 24px;
+    }
+    
+    .input {
+        padding: 16px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    .submit-btn {
+        padding: 16px;
+        font-size: 16px;
+        border-radius: 10px;
+    }
+    
+    .checkbox-container {
+        margin-bottom: 32px;
+    }
+    
+    .footer {
+        margin-top: 40px;
+        font-size: 14px;
+    }
+}
+
+/* Landscape mode adjustments for small screens */
+@media (max-height: 600px) and (orientation: landscape) {
+    .container {
+        padding: 10px;
+    }
+    
+    .logo-container {
+        margin-bottom: 15px;
+    }
+    
+    .logo {
+        height: 40px;
+    }
+    
+    .form-container {
+        padding: 20px;
+    }
+    
+    .form-title {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+    
+    .form-group {
+        margin-bottom: 12px;
+    }
+    
+    .checkbox-container {
+        margin-bottom: 16px;
+    }
+    
+    .footer {
+        margin-top: 15px;
+        font-size: 12px;
+    }
+}
